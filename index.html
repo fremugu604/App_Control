@@ -341,7 +341,9 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b
  render()});
 ["input","change"].forEach(ev=>document.addEventListener(ev,e=>{const i=e.target.closest&&e.target.closest("[data-r]");if(i&&rd)rd[i.dataset.r]=i.value}));
 document.addEventListener("change",e=>{const i=e.target.closest("[data-f]");if(!i)return;const c=T.find(x=>x.id===i.dataset.id);if(c){c[i.dataset.f]=+i.value||0;save();render()}});
-if(location.hash==="#nuevo")sheet=blank();
+function abrirNuevo(){if(location.hash!=="#nuevo")return;sheet=blank();try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}render()}
+addEventListener("hashchange",abrirNuevo);
+if(location.hash==="#nuevo"){sheet=blank();try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}
 initNube();
 if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 render();
